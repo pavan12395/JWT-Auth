@@ -54,9 +54,7 @@ app.post('/login',async (req,res,next)=>
 
 app.get('/checkToken',async (req,res,next)=>
 {
-    console.log(req.headers);
     const accessToken =  req.headers['authorization'];
-    console.log(accessToken);
     jwt.verify(accessToken,process.env.ACCESS_SECRET_KEY,(err,user)=>
     {
         if(err)

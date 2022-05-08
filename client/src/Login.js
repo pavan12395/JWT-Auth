@@ -19,7 +19,7 @@ export default function SignUp()
        const password  = passwordRef.current.value;
        try
        {
-           const response = await axios.post('http://localhost:5000/login',{email:email,password:password,name:name},{withCredentials:true});
+           const response = await axios.post('http://localhost:5000/login',{email:email,password:password,name:name});
            if(response.status!=200)
            {
                throw new Error(response.data.message);

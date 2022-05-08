@@ -10,7 +10,10 @@ export default function Dashboard()
     const logOutHandler=async (e)=>
     {
         e.preventDefault();
-        const response = await axios.get("http://localhost:5000/logout");
+        const refreshToken = localStorage.getItem('refreshToken');
+        const response = await axios.get("http://localhost:5000/logout",{headers:{'authorization':refreshToken}});
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
         if(response.status==200)
         {
             setUser(null);
@@ -25,6 +28,7 @@ export default function Dashboard()
           localStorage.setItem('accessToken',accessToken);
           response = await axios.get('http://localhost:5000/checkToken',{headers:{'authorization':accessToken}});
           setUser({name:response.data.name,email:response.data.email});
+          setExpired(false);
     }
      if(user)
      {
